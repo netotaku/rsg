@@ -1,0 +1,779 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Join our webinar</title>
+
+  <!--
+        	This email is an experimental proof-of-concept based on the
+            idea that the most common design patterns seen in email can
+            be placed in modular blocks and moved around to create
+            different designs.
+
+			The same principle is used to build the email templates in
+            MailChimp's Drag-and-Drop email editor.
+
+			This email is optimized for mobile email clients, and even
+            works relatively well in the Android Gmail App, which does
+            not support Media Queries, but does have limited mobile-
+            friendly functionality.
+
+			While this coding method is very flexible, it can be more
+            brittle than traditionally-coded emails, particularly in
+            Microsoft Outlook 2007-2010. Outlook-specific conditional
+            CSS is included to counteract the inconsistencies that
+            crop up.
+            
+            For more information on HTML email design and development,
+            visit http://templates.mailchimp.com
+        -->
+
+  <style type="text/css">
+    /*////// RESET STYLES //////*/
+    body,
+    #bodyTable,
+    #bodyCell {
+      height: 100% !important;
+      margin: 0;
+      padding: 0;
+      width: 100% !important;
+    }
+
+    table {
+      border-collapse: collapse;
+    }
+
+    img,
+    a img {
+      border: 0;
+      outline: none;
+      text-decoration: none;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin: 0;
+      padding: 0;
+    }
+
+    p {
+      margin: 1em 0;
+    }
+
+    /*////// CLIENT-SPECIFIC STYLES //////*/
+    .ReadMsgBody {
+      width: 100%;
+    }
+
+    .ExternalClass {
+      width: 100%;
+    }
+
+    /* Force Hotmail/Outlook.com to display emails at full width. */
+    .ExternalClass,
+    .ExternalClass p,
+    .ExternalClass span,
+    .ExternalClass font,
+    .ExternalClass td,
+    .ExternalClass div {
+      line-height: 100%;
+    }
+
+    /* Force Hotmail/Outlook.com to display line heights normally. */
+    table,
+    td {
+      mso-table-lspace: 0pt;
+      mso-table-rspace: 0pt;
+    }
+
+    /* Remove spacing between tables in Outlook 2007 and up. */
+    #outlook a {
+      padding: 0;
+    }
+
+    /* Force Outlook 2007 and up to provide a "view in browser" message. */
+    img {
+      -ms-interpolation-mode: bicubic;
+    }
+
+    /* Force IE to smoothly render resized images. */
+    body,
+    table,
+    td,
+    p,
+    a,
+    li,
+    blockquote {
+      -ms-text-size-adjust: 100%;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    /* Prevent Windows- and Webkit-based mobile platforms from changing declared text sizes. */
+
+    /*////// FRAMEWORK STYLES //////*/
+    .flexibleContainerCell {
+      padding-top: 20px;
+      padding-Right: 20px;
+      padding-Left: 20px;
+    }
+
+    .flexibleContainerYellow {
+      background-color: #F2C800;
+    }
+
+    .flexibleContainerBlue {
+      background-color: #4316A3;
+    }
+
+    .flexibleContainerBlack {
+      background-color: #1E1E1E;
+    }
+
+    .flexibleContainerBlue td {
+      color: #ffffff;
+    }
+
+    .flexibleImage {
+      height: auto;
+    }
+
+    .bottomShim {
+      padding-bottom: 20px;
+    }
+
+    .imageContent,
+    .imageContentLast {
+      padding-bottom: 20px;
+    }
+
+    .nestedContainerCell {
+      padding-top: 20px;
+      padding-Right: 20px;
+      padding-Left: 20px;
+    }
+
+    .paddingTop {
+      padding-top: 20px;
+    }
+
+    /*////// GENERAL STYLES //////*/
+    body,
+    #bodyTable {
+      background-color: #FFFFFF;
+    }
+
+    #bodyCell {
+      padding-top: 40px;
+      padding-bottom: 40px;
+    }
+
+    #emailBody {
+      background-color: #FFFFFF;
+      border-collapse: separate;
+      border-radius: 4px;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: #1E1E1E;
+      font-family: 'Century Gothic', 'AppleSDGothicNeo-Regular', Arial, sans-serif;
+      font-weight: bold;
+      font-size: 20px;
+      line-height: 125%;
+      text-align: Left;
+    }
+
+    .textContent,
+    .textContentLast {
+      color: #1E1E1E;
+      font-family: 'Century Gothic', 'AppleSDGothicNeo-Regular', Arial, sans-serif;
+      font-weight: bold;
+      font-size: 16px;
+      line-height: 150%;
+      text-align: Left;
+      padding-bottom: 20px;
+      letter-spacing: 0.2px;
+    }
+
+    .textContent ul {
+      padding: 0px;
+      margin: 0px;
+      padding-left: 20px;
+    }
+
+    .textContent ul li {
+      color: #4316A3;
+    }
+
+    .textContent ul li+li {
+      padding-top: 10px;
+    }
+
+    .textContentCenter {
+      text-align: center;
+    }
+
+    .textContent a,
+    .textContentLast a {
+      color: #2C9AB7;
+      text-decoration: underline;
+    }
+
+    .textContentFooter {
+      color: #FFFFFF;
+      font-size: 8px;
+      padding:20px;
+    }
+
+    .emailButton {
+      border-collapse: separate;
+      border-radius: 4px;
+    }
+
+    .emailButtonPink {
+      background-color: #F22A4E;
+    }
+
+    .emailButtonBlue {
+      background-color: #4316A3;
+    }
+
+    .buttonContent {
+      color: #FFFFFF;
+      font-family: 'Century Gothic', 'AppleSDGothicNeo-Regular', Arial, sans-serif;
+      font-size: 18px;
+      font-weight: bold;
+      line-height: 100%;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .flexibleImage {
+      display: block !important;
+    }
+
+    .buttonContent a {
+      color: #FFFFFF;
+      display: block;
+      text-decoration: none;
+    }
+
+    .emailCalendar {
+      background-color: #FFFFFF;
+    }
+
+    .paddingBottom {
+      padding-bottom: 20px;
+    }
+
+    .minusTopShim, .minusTopShim .nestedContainerCell {
+      padding-top: 0px !important;
+    }
+
+    .textContent h1, .textContent h2, .textContent h3, .textContent h4 {
+      text-align: center;
+    }
+
+    .textContent h1 {
+      font-size: 32px;
+      color: #fff;
+      padding-bottom: 10px;
+    }
+
+    .flexibleContainerBackground {
+      background: #4316A3 url('./images/background.png');
+    }
+
+    .textContent h2 {
+      color: #F2C800;
+      padding-bottom: 20px;
+      padding-top: 20px;
+    }
+
+    .textContent h3 {
+      color: #FFF;
+    }
+
+    .textContent h4 {
+      font-weight: bold;
+      color: #F2C800;
+      font-size: 24px;
+      padding-bottom: 10px;
+    }
+
+    .textContentKern {
+      letter-spacing: 1px;
+    }
+
+    /*////// MOBILE STYLES //////*/
+    @media only screen and (max-width: 480px) {
+
+      /*////// CLIENT-SPECIFIC STYLES //////*/
+      body {
+        width: 100% !important;
+        min-width: 100% !important;
+      }
+
+      /* Force iOS Mail to render the email at full width. */
+
+      /*////// FRAMEWORK STYLES //////*/
+      /*
+					CSS selectors are written in attribute
+					selector format to prevent Yahoo Mail
+					from rendering media query styles on
+					desktop.
+				*/
+      table[id="emailBody"],
+      table[class="flexibleContainer"],
+      table[class="flexibleContainer flexibleContainerYellow"],
+      table[class="flexibleContainer flexibleContainerBlue"],
+      table[class="flexibleContainer flexibleContainerBlue flexibleContainerBackground"],
+      table[class="flexibleContainer flexibleContainerBlack"]{
+        width: 100% !important;
+      }
+
+      /*
+					The following style rule makes any
+					image classed with 'flexibleImage'
+					fluid when the query activates.
+					Make sure you add an inline max-width
+					to those images to prevent them
+					from blowing out. 
+				*/
+      img[class="flexibleImage"] {
+        height: auto !important;
+        width: 100% !important;
+      }
+
+      /*
+					Make buttons in the email span the
+					full width of their container, allowing
+					for left- or right-handed ease of use.
+				*/
+      table[class="emailButton"] {
+        width: 100% !important;
+      }
+
+      td[class="buttonContent"] {
+        padding: 0 !important;
+      }
+
+      td[class="buttonContent"] a {
+        padding: 15px !important;
+      }
+
+      td[class="textContentLast"],
+      td[class="imageContentLast"] {
+        padding-top: 20px !important;
+      }
+
+      /*////// GENERAL STYLES //////*/
+      td[id="bodyCell"] {
+        padding-top: 10px !important;
+        padding-Right: 10px !important;
+        padding-Left: 10px !important;
+      }
+    }
+
+  </style>
+
+<body style="margin: 0;padding: 0;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #FFFFFF;height: 100% !important;width: 100% !important;">
+  <center>
+    <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;margin: 0;padding: 0;background-color: #FFFFFF;height: 100% !important;width: 100% !important;">
+      <tr>
+        <td align="center" valign="top" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+          <!-- EMAIL CONTAINER // -->
+          <!--
+                      The table "emailBody" is the email's container.
+                        Its width can be set to 100% for a color band
+                        that spans the width of the page.
+                    -->
+          <table border="0" cellpadding="0" cellspacing="0" width="600" id="emailBody" style="border-collapse: separate;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #FFFFFF;border-radius: 4px;">
+            <tr>
+              <!--MODULE ROW  //  -->
+              <td valign="top" align="center" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                <!-- CENTERING TABLE // -->
+                <table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                  <tbody>
+                    <tr>
+                      <td valign="top" align="center" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                        <!-- FLEXIBLE CONTAINER // -->
+                        <table class="flexibleContainer" width="600" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                          <tbody>
+                            <tr>
+                              <td width="600" valign="top" align="center" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+
+
+                                <!-- CONTENT TABLE // -->
+                                <!--
+                                                  The table cell imageContent has padding
+                                                    applied to the bottom as part of the framework,
+                                                    ensuring images space correctly in Android Gmail.
+                                                -->
+                                <table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                  <tbody>
+                                    <tr>
+                                      <td valign="top" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                        <img src="./images/header-gif_INVITE.gif" class="flexibleImage" style="max-width: 600px;border: 0;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;height: auto;display: block !important;" width="600">
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                                <!-- // CONTENT TABLE -->
+
+
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <!-- // FLEXIBLE CONTAINER -->
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <!-- // CENTERING TABLE -->
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr> <!-- // MODULE ROW -->
+      <tr>
+        <!--MODULE ROW  //  -->
+        <td valign="top" align="center" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+          <!-- CENTERING TABLE // -->
+          <table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+            <tbody>
+              <tr>
+                <td valign="top" align="center" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                  <!-- FLEXIBLE CONTAINER // -->
+                  <table class="flexibleContainer" width="600" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                    <tbody>
+                      <tr>
+                        <td class="flexibleContainerCell bottomShim" width="600" valign="top" align="center" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;padding-top: 20px;padding-right: 20px;padding-left: 20px;padding-bottom: 20px;">
+                          <table class="nestedContainer" width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                            <tbody>
+                              <tr>
+                                <td class="nestedContainerCell" valign="top" align="center" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;padding-top: 20px;padding-right: 20px;padding-left: 20px;">
+
+
+                                  <!-- CONTENT TABLE // -->
+                                  <table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                    <tbody>
+                                      <tr>
+                                        <td class="textContent textContentCenter" valign="top" align="center" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #1E1E1E;font-family: 'Century Gothic', 'AppleSDGothicNeo-Regular', Arial, sans-serif;font-weight: bold;font-size: 16px;line-height: 150%;text-align: center;padding-bottom: 20px;letter-spacing: 0.2px;">
+                                          The engines of successful businesses are driven by
+                                          powerful, diverse and high performing cultures.
+                                          Understanding the dynamics at work, the opportunities that
+                                          are afforded and the potential of recruiting the right
+                                          individuals to cultivate productive balance are central to
+                                          successful HR strategies and recruitment programmes.
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                  <!-- // CONTENT TABLE -->
+
+
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <!-- // FLEXIBLE CONTAINER -->
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- // CENTERING TABLE -->
+        </td>
+      </tr> <!-- // MODULE ROW -->
+      <tr>
+        <!--MODULE ROW  //  -->
+        <td valign="top" align="center" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+          <!-- CENTERING TABLE // -->
+          <table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+            <tbody>
+              <tr>
+                <td valign="top" align="center" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                  <!-- FLEXIBLE CONTAINER // -->
+                  <table class="flexibleContainer flexibleContainerYellow" width="600" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #F2C800;">
+                    <tbody>
+                      <tr>
+                        <td class="flexibleContainerCell" width="600" valign="top" align="center" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;padding-top: 20px;padding-right: 20px;padding-left: 20px;">
+                          <table class="nestedContainer" width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                            <tbody>
+                              <tr>
+                                <td class="nestedContainerCell" valign="top" align="center" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;padding-top: 20px;padding-right: 20px;padding-left: 20px;">
+
+
+                                  <!-- CONTENT TABLE // -->
+                                  <table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                    <tbody>
+                                      <tr>
+                                        <td class="textContent" valign="top" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #1E1E1E;font-family: 'Century Gothic', 'AppleSDGothicNeo-Regular', Arial, sans-serif;font-weight: bold;font-size: 16px;line-height: 150%;text-align: Left;padding-bottom: 20px;letter-spacing: 0.2px;">
+                                          From the effects of millennials and Gen Z entering the
+                                          workplace and the profound societal changes that are
+                                          shaping the modern corporate landscape, culture and
+                                          purpose have never been more important.
+                                          <br>
+                                          <br>
+                                          In our latest White Paper ‘Recruiting for Balanced
+                                          Cultures’ we explore some key ideas:
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                  <!-- // CONTENT TABLE -->
+
+
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <!-- // FLEXIBLE CONTAINER -->
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- // CENTERING TABLE -->
+        </td>
+      </tr> <!-- // MODULE ROW -->
+      <tr>
+        <!--  MODULE ROW // -->
+        <td valign="top" align="center" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+          <!-- CENTERING TABLE // -->
+          <table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+            <tbody>
+              <tr>
+                <td valign="top" align="center" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                  <!-- FLEXIBLE CONTAINER // -->
+                  <table class="flexibleContainer flexibleContainerYellow" width="600" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #F2C800;">
+                    <tbody>
+                      <tr>
+                        <td class="flexibleContainerCell bottomShim minusTopShim" width="600" valign="top" align="center" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;padding-top: 0px !important;padding-right: 20px;padding-left: 20px;padding-bottom: 20px;">
+                          <table class="nestedContainer" width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                            <tbody>
+                              <tr>
+                                <td class="nestedContainerCell paddingBottom" valign="top" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;padding-top: 0px !important;padding-right: 20px;padding-left: 20px;padding-bottom: 20px;">
+
+
+                                  <!-- CONTENT TABLE // -->
+                                  <table class="flexibleContainer" width="320" cellspacing="0" cellpadding="0" border="0" align="Left" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                    <tbody>
+                                      <tr>
+                                        <td class="textContent" valign="top" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #1E1E1E;font-family: 'Century Gothic', 'AppleSDGothicNeo-Regular', Arial, sans-serif;font-weight: bold;font-size: 16px;line-height: 150%;text-align: Left;padding-bottom: 20px;letter-spacing: 0.2px;">
+                                          <ul style="padding: 0px;margin: 0px;padding-left: 20px;">
+                                            <li style="-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #4316A3;">Quieting the echo chamber</li>
+                                            <li style="-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #4316A3;padding-top: 10px;">The positive effect of diversity on culture and
+                                              optimised performance</li>
+                                            <li style="-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #4316A3;padding-top: 10px;">Culture as a driver for innovation</li>
+                                            <li style="-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #4316A3;padding-top: 10px;">The true value of ‘purpose’</li>
+                                            <li style="-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #4316A3;padding-top: 10px;">How culture creates the platform for revenue growth
+                                            </li>
+                                          </ul>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                  <!-- // CONTENT TABLE -->
+
+
+                                  <!-- CONTENT TABLE // -->
+                                  <table class="flexibleContainer" width="160" cellspacing="0" cellpadding="0" border="0" align="center" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                    <tbody>
+                                      <tr>
+                                        <td class="paddingBottom" valign="top" align="center" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;padding-bottom: 20px;">
+                                          <img src="./images/pdf.png" class="flexibleImage" style="max-width: 120px;border: 0;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;height: auto;display: block !important;" width="120">
+
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                          <table class="emailButton emailButtonBlue" width="160" cellspacing="0" cellpadding="0" border="0" align="center" style="border-collapse: separate;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;border-radius: 4px;background-color: #4316A3;">
+                                            <tbody>
+                                              <tr>
+                                                <td class="buttonContent" valign="middle" align="center" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #FFFFFF;font-family: 'Century Gothic', 'AppleSDGothicNeo-Regular', Arial, sans-serif;font-size: 18px;font-weight: bold;line-height: 100%;padding: 10px;text-align: center;">
+                                                  <a href="#" target="_blank" style="-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #FFFFFF;display: block;text-decoration: none;">PDF Download</a>
+                                                </td>
+                                              </tr>
+                                            </tbody>
+                                          </table>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                  <!-- // CONTENT TABLE -->
+
+
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <!-- // FLEXIBLE CONTAINER -->
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- // CENTERING TABLE -->
+        </td>
+      </tr> <!-- // MODULE ROW -->
+      <tr>
+        <!-- MODULE ROW // -->
+        <td valign="top" align="center" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+          <!-- CENTERING TABLE // -->
+          <table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+            <tbody>
+              <tr>
+                <td valign="top" align="center" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                  <!-- FLEXIBLE CONTAINER // -->
+                  <table class="flexibleContainer flexibleContainerBlue flexibleContainerBackground" width="600" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #4316A3;background: #4316A3 url(./images/background.png);">
+                    <tbody>
+                      <tr>
+                        <td class="flexibleContainerCell bottomShim" width="600" valign="top" align="center" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;padding-top: 20px;padding-right: 20px;padding-left: 20px;padding-bottom: 20px;color: #ffffff;">
+                          <table class="nestedContainer" width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                            <tbody>
+                              <tr>
+                                <td class="nestedContainerCell" valign="top" align="center" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;padding-top: 20px;padding-right: 20px;padding-left: 20px;color: #ffffff;">
+
+
+                                  <!-- CONTENT TABLE // -->
+                                  <table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                    <tbody>
+                                      <tr>
+                                        <td class="textContent textContentCenter textContentKern" valign="top" align="center" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #ffffff;font-family: 'Century Gothic', 'AppleSDGothicNeo-Regular', Arial, sans-serif;font-weight: bold;font-size: 16px;line-height: 150%;text-align: center;padding-bottom: 20px;letter-spacing: 1px;">
+                                          <h4 style="margin: 0;padding: 0;color: #F2C800;font-family: 'Century Gothic', 'AppleSDGothicNeo-Regular', Arial, sans-serif;font-weight: bold;font-size: 24px;line-height: 125%;text-align: center;padding-bottom: 10px;">JOIN OUR WEBINAR</h4>
+                                          <h1 style="margin: 0;padding: 0;color: #fff;font-family: 'Century Gothic', 'AppleSDGothicNeo-Regular', Arial, sans-serif;font-weight: bold;font-size: 32px;line-height: 125%;text-align: center;padding-bottom: 10px;">recruiting for balanced cultures</h1>
+                                          <h3 class="bold" style="margin: 0;padding: 0;color: #FFF;font-family: 'Century Gothic', 'AppleSDGothicNeo-Regular', Arial, sans-serif;font-weight: bold;font-size: 20px;line-height: 125%;text-align: center;">and high performing teams</h3>
+                                          <h2 style="margin: 0;padding: 0;color: #F2C800;font-family: 'Century Gothic', 'AppleSDGothicNeo-Regular', Arial, sans-serif;font-weight: bold;font-size: 20px;line-height: 125%;text-align: center;padding-bottom: 20px;padding-top: 20px;">Wed 29th May 2:15pm</h2>
+                                          Join us for a stimulating presentation and open discussion about the challenges & opportunities in building high performance teams based on cultural balance.
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td class="bottomShim" valign="top" align="center" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;padding-bottom: 20px;color: #ffffff;">
+                                          <table class="emailButton emailButtonPink" width="200" cellspacing="0" cellpadding="0" border="0" style="border-collapse: separate;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;border-radius: 4px;background-color: #F22A4E;">
+                                            <tbody>
+                                              <tr>
+                                                <td class="buttonContent" valign="middle" align="center" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #ffffff;font-family: 'Century Gothic', 'AppleSDGothicNeo-Regular', Arial, sans-serif;font-size: 18px;font-weight: bold;line-height: 100%;padding: 10px;text-align: center;">
+                                                  <a href="#" target="_blank" style="-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #FFFFFF;display: block;text-decoration: none;">sign up now</a>
+                                                </td>
+                                              </tr>
+                                            </tbody>
+                                          </table>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                  <!-- // CONTENT TABLE -->
+
+
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <!-- // FLEXIBLE CONTAINER -->
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- // CENTERING TABLE -->
+        </td>
+      </tr> <!-- MODULE ROW // -->
+      <tr>
+        <!-- MODULE ROW // -->
+        <td valign="top" align="center" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+          <!-- CENTERING TABLE // -->
+          <table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+            <tbody>
+              <tr>
+                <td valign="top" align="center" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                  <!-- FLEXIBLE CONTAINER // -->
+                  <table class="flexibleContainer flexibleContainerBlack" width="600" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;background-color: #1E1E1E;">
+                    <tbody>
+                      <tr>
+                        <td class="flexibleContainerCell bottomShim" width="600" valign="top" align="center" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;padding-top: 20px;padding-right: 20px;padding-left: 20px;padding-bottom: 20px;">
+                          <table class="nestedContainer" width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                            <tbody>
+                              <tr>
+                                <td valign="top" align="center" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                  <!-- CONTENT TABLE // -->
+                                  <table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                    <tbody>
+                                      <tr>
+                                        <td valign="top" align="center" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                          <img src="./images/logo.png" class="flexibleImage" style="max-width: 110px;border: 0;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;height: auto;display: block !important;">
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                  <!-- // CONTENT TABLE -->
+                                  <!-- CONTENT TABLE // -->
+                                  <table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                    <tbody>
+                                      <tr>
+                                        <td class="paddingTop" valign="top" align="center" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;padding-top: 20px;">
+                                          <img src="./images/social.png" class="flexibleImage" style="max-width: 65px;border: 0;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;height: auto;display: block !important;">
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                  <!-- // CONTENT TABLE -->
+                                </td>
+                              </tr>
+                              <tr>
+                                <td style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                  <table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                    <tbody>
+                                      <tr>
+                                        <td class="textContent textContentCenter textContentFooter" valign="middle" align="center" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #FFFFFF;font-family: 'Century Gothic', 'AppleSDGothicNeo-Regular', Arial, sans-serif;font-weight: bold;font-size: 8px;line-height: 150%;text-align: center;padding-bottom: 20px;letter-spacing: 0.2px;padding: 20px;">
+                                            Sanderson Recruitment Plc is a company registered in England and Wales with company number 02919156, VAT registration number 609794596 and registered office at First Floor, Clifton Down House, 54a Whiteladies Road, Clifton, Bristol, BS8 2NH
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <!-- // FLEXIBLE CONTAINER -->
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- // CENTERING TABLE -->
+        </td>
+      </tr> <!-- MODULE ROW // -->
+    </table>
+  </center>
+</body>
+
+</head></html>
